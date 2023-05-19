@@ -16,6 +16,39 @@
   }
 }
 
+@keyframes slideFromRight {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-from-right {
+  animation-name: slideFromRight;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+
+
+@keyframes slideFromLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-from-left {
+  animation-name: slideFromLeft;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
