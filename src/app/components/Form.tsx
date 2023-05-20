@@ -21,7 +21,6 @@ const Form: React.FC<pageProps> = ({
     e.preventDefault();
     setSetSearchWord(query);
     const data = await getFlickrData(query, 1);
-    console.log(data)
     setData(data.photos.photo);
     setQuery("");
     setShow(false);
@@ -45,7 +44,7 @@ const Form: React.FC<pageProps> = ({
                       onChange={(e) => setQuery(e.target.value)}
                       className="px-3 w-full text-black rounded-md rounded-r-none"
                     />
-                    <button className="bg-indigo-600 text-white px-6 text-lg font-semibold py-1.5 rounded-r-md">
+                    <button className="bg-green-500 text-white px-6 text-lg font-semibold py-1.5 rounded-r-md">
                       Go
                     </button>
                   </div>

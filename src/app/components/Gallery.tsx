@@ -12,49 +12,57 @@ type pageProps = {
 const Gallery: React.FC<pageProps> = ({ data }) => {
   //usestate for IMages array
   const [result, setResult] = useState<FlickrPhoto[]>([]);
-  const [searchWord, setSetSearchWord] = useState<string>('')
+  const [searchWord, setSetSearchWord] = useState<string>("");
   const [page, setPage] = useState<number>(0);
 
   useEffect(() => {
-      setResult([]); 
-      setPage(2)     
-}, [searchWord])
+    setResult([]);
+    setPage(2);
+  }, [searchWord]);
 
   //assign initial data
   useEffect(() => setResult([]), []);
 
   async function fetchData() {
-    const data:FlickrSearchResult = await getFlickrData(searchWord, page);
-    setResult((prev)=>[...prev, ...data.photos.photo])
-    setPage(prev=>prev+1)
+    const data: FlickrSearchResult = await getFlickrData(searchWord, page);
+    setResult((prev) => [...prev, ...data.photos.photo]);
+    setPage((prev) => prev + 1);
   }
-
-
 
   return (
     <>
-    <Form setSetSearchWord={setSetSearchWord} page={page} setData={setResult} setPage={setPage}/>
+      <Form
+        setSetSearchWord={setSetSearchWord}
+        page={page}
+        setData={setResult}
+        setPage={setPage}
+      />
 
-    <div className="container w-screen mx-auto py-2 lg:px-32 lg:pt-12">
-
-      
-      {result.length>0&&(<InfiniteScroll
-        dataLength={result?.length} //This is important field to render the next data
-        next={fetchData}
-        hasMore={result?true:false}
-        loader={result.length===0?'':<h4 className="mt-10">Loading...</h4>}
-        >
+      <div className="container w-screen mx-auto py-2 lg:px-32 lg:pt-12">
+        {result.length > 0 && (
+          <InfiniteScroll
+            dataLength={result?.length} //This is important field to render the next data
+            next={fetchData}
+            hasMore={result ? true : false}
+            loader={
+              result.length === 0 ? "" : <h4 className="mt-10">Loading...</h4>
+            }
+          >
             <div className="-m-1 w-full flex flex-wrap md:-m-2">
-        {result?.map((item, index) => (
-          <div className="flex md:w-1/3 md:h-auto md:flex-wrap" key={item.id}>
-            <div className="w-full  h-full p-1 md:p-2" >
-                <ImageComponent item={item} index={index}/>
+              {result?.filter((item, i)=>(result[i+1]?.id !== item.id)).map((item, index) => (
+                <div
+                  className="flex md:w-1/3 md:h-auto md:flex-wrap"
+                  key={index}
+                >
+                  <div className="w-full  h-full p-1 md:p-2">
+                    {item.ispublic===1&&<ImageComponent item={item} index={index} />}
+                  </div>
+                </div>
+              ))}
             </div>
-          </div>
-        ))}
+          </InfiniteScroll>
+        )}
       </div>
-    </InfiniteScroll>)}
-    </div>
     </>
   );
 };
