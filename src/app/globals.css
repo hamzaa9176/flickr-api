@@ -18,16 +18,16 @@
 
 @keyframes slideFromRight {
   0% {
-    transform: translateX(100%);
+    transform: translateX(0%);
   }
   100% {
-    transform: translateX(0);
+    transform: translateX(20%);
   }
 }
 
 .animate-slide-from-right {
   animation-name: slideFromRight;
-  animation-duration: 1s;
+  animation-duration: .5s;
   animation-fill-mode: forwards;
 }
 
@@ -35,16 +35,16 @@
 
 @keyframes slideFromLeft {
   0% {
-    transform: translateX(-100%);
+    transform: translateX(200%);
   }
   100% {
-    transform: translateX(0);
+    transform: translateX(0%);
   }
 }
 
 .animate-slide-from-left {
   animation-name: slideFromLeft;
-  animation-duration: 1s;
+  animation-duration: .5s;
   animation-fill-mode: forwards;
 }
 
