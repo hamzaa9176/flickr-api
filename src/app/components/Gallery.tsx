@@ -37,9 +37,9 @@ const Gallery: React.FC<pageProps> = ({ data }) => {
         setData={setResult}
         setPage={setPage}
       />
-
+    
       <div className="container w-screen mx-auto py-2 lg:px-32 lg:pt-12">
-        {result.length > 0 && (
+        {result.length > 0 ? (
           <InfiniteScroll
             dataLength={result?.length} //This is important field to render the next data
             next={fetchData}
@@ -61,7 +61,7 @@ const Gallery: React.FC<pageProps> = ({ data }) => {
               ))}
             </div>
           </InfiniteScroll>
-        )}
+        ): <div className="flex flex-col justify-center align-middle items-center">No result Found!</div>}
       </div>
     </>
   );
