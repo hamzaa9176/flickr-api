@@ -17,6 +17,7 @@ const Form: React.FC<pageProps> = ({
 }) => {
   const [query, setQuery] = useState("");
   const [show, setShow] = useState(false);
+  const[hideFullPageSearch, setHideFullPageSearch] = useState(false)
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSetSearchWord(query);
@@ -24,18 +25,29 @@ const Form: React.FC<pageProps> = ({
     setData(data.photos.photo);
     setQuery("");
     setShow(false);
+    setHideFullPageSearch(true)
+    console.log(data)
   };
   return (
-    <div className="w-full flex flex-col align-middle">
-      <section
-        className={`flex z-20 fixed top-3 right-4 md:top-5 md:right-5 ${
+    <>
+    <div className={` ${hideFullPageSearch?'h-auto ':'h-screen'} w-full flex flex-col justify-center items-center align-middle`}>
+      {/* <section
+        className={`flex z-20  ${
           !show ? "animate-slide-from-right" : "animate-slide-from-left"
         }`}
+      > */}
+{ !hideFullPageSearch&&   <div className="pb-5 text-lg">Search for an image:</div>
+}
+       <section
+        className={` z-20 flex flex-row ${
+          hideFullPageSearch&&(!show ? "animate-slide-from-right" : "animate-slide-from-left")
+        } ${hideFullPageSearch?('fixed top-3 right-4 md:top-5 md:right-5'):''}`}
       >
+        
         <div>
-          {show && (
+          {(show||!hideFullPageSearch) && (
             <form onSubmit={handleSubmit}>
-              <div className="">
+              <div>
                 <div className="flex space-x-4">
                   <div className="flex rounded-md overflow-hidden w-full">
                     <input
@@ -54,13 +66,13 @@ const Form: React.FC<pageProps> = ({
           )}
         </div>
         <div>
-          <button
+          {hideFullPageSearch&&(<button
             onClick={() => setShow((prev) => !prev)}
             type="button"
             className="flex items-center justify-center h-full"
           >
             <span className="inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white ml-4 opacity-20 md:opacity-100">
-              {!show ? (
+              {(!show) ? (
                 <svg
                   className="w-5 h-5 text-black sm:w-6 sm:h-6"
                   fill="none"
@@ -93,10 +105,11 @@ const Form: React.FC<pageProps> = ({
                 </svg>
               )}
             </span>
-          </button>
+          </button>)}
         </div>
       </section>
     </div>
+    </>
   );
 };
 

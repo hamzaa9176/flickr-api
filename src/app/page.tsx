@@ -1,10 +1,11 @@
 import Gallery from "./components/Gallery";
-
 export default async function Home() {
   return (
-    <main className="">
+    <main className="w-full h-auto">
      
-      <Gallery />
+      
+        <Gallery />
+     
 
     </main>
   )
