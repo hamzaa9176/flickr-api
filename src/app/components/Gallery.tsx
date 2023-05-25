@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import Form from "./Form";
 import { getFlickrData } from "../utils/getImages";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -38,7 +38,7 @@ const Gallery: React.FC<pageProps> = ({ data }) => {
         setPage={setPage}
       />
     
-      <div className="container py-10 w-screen mx-auto">
+      <div className={`container ${result?.length>0&&'py-10'} w-screen mx-auto`}>
         
         {result.length > 0 ? (
           <InfiniteScroll
@@ -56,7 +56,9 @@ const Gallery: React.FC<pageProps> = ({ data }) => {
                   key={index}
                 >
                   <div className="w-full  h-full p-1 md:p-2">
-                    {item.ispublic===1&&<ImageComponent item={item} index={index} />}
+                  {item.ispublic===1&&<Suspense fallback={'ashdjksahdjksahkjdhsakjdhksajdhjkasdsjaklfòdsaf'}>
+                    <ImageComponent item={item} index={index} />
+                    </Suspense>}
                   </div>
                 </div>
               ))}

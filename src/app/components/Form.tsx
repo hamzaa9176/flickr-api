@@ -2,6 +2,7 @@
 
 import React, { FormEvent, useState } from "react";
 import { getFlickrData } from "../utils/getImages";
+import { MagnifyingGlassIcon } from '@heroicons/react/24/solid'
 
 type pageProps = {
   setSetSearchWord: React.Dispatch<React.SetStateAction<string>>;
@@ -22,7 +23,7 @@ const Form: React.FC<pageProps> = ({
     e.preventDefault();
     setSetSearchWord(query);
     const data = await getFlickrData(query, 1);
-    setData(data.photos.photo);
+    setData(data.photos?.photo);
     setQuery("");
     setShow(false);
     setHideFullPageSearch(true)
@@ -52,12 +53,13 @@ const Form: React.FC<pageProps> = ({
                   <div className="flex rounded-md overflow-hidden w-full">
                     <input
                       type="text"
+                      required
                       value={query}
                       onChange={(e) => setQuery(e.target.value)}
-                      className="px-3 w-full text-black rounded-md rounded-r-none"
+                      className="px-3 w-full text-black outline-none rounded-md rounded-r-none"
                     />
                     <button className="bg-green-500 text-white px-6 text-lg font-semibold py-1.5 rounded-r-md">
-                      Go
+                    <MagnifyingGlassIcon className="h-6 w-6 text-white font-bold"/>
                     </button>
                   </div>
                 </div>
